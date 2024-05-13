@@ -1,1 +1,0 @@
-# Ativ7_Hibrido
