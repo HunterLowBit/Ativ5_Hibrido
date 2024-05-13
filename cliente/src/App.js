@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
-const LOCAL_STORAGE_KEY = 'tasks';
-const LIST_TITLE_KEY = 'listTitle';
+const LOCAL_STORAGE_KEY = "tasks";
+const LIST_TITLE_KEY = "listTitle";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [listTitle, setListTitle] = useState('');
+  const [listTitle, setListTitle] = useState("");
 
   const handleTaskCompletion = (index) => {
     const updatedTasks = [...tasks];
@@ -29,7 +29,7 @@ function App() {
   };
 
   const handleAddTask = () => {
-    const newTask = { completed: false, description: '' };
+    const newTask = { completed: false, description: "" };
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
     saveTasksToLocalStorage(updatedTasks);
@@ -41,13 +41,13 @@ function App() {
   };
 
   const handleSaveList = () => {
-    const filename = prompt('Enter a filename:');
+    const filename = prompt("Enter a filename:");
     if (filename) {
       const blob = new Blob([JSON.stringify(tasks, null, 2)], {
-        type: 'application/json',
+        type: "application/json",
       });
       const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
       link.download = `${filename}.json`;
       link.click();
@@ -56,10 +56,10 @@ function App() {
   };
 
   const handleImportList = () => {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.json';
-    fileInput.addEventListener('change', (event) => {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".json";
+    fileInput.addEventListener("change", (event) => {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -74,7 +74,7 @@ function App() {
 
   const handleLoadTasks = () => {
     const tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-    const listTitle = localStorage.getItem(LIST_TITLE_KEY) || '';
+    const listTitle = localStorage.getItem(LIST_TITLE_KEY) || "";
     setTasks(tasks);
     setListTitle(listTitle);
   };
@@ -99,7 +99,7 @@ function App() {
           />
         </h2>
         <ul>
-          <div class="container">
+          <div class="container" data-color-index="1">
             {tasks.map((task, index) => (
               <li key={index}>
                 <input
