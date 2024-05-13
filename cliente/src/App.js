@@ -95,6 +95,7 @@ function App() {
             type="text"
             value={listTitle}
             onChange={(event) => setListTitle(event.target.value)}
+            placeholder="Nome da Lista"
           />
         </h2>
         <ul>
@@ -109,6 +110,7 @@ function App() {
                 type="text"
                 value={task.description}
                 onChange={(event) => handleTaskEdit(index, event.target.value)}
+                placeholder="Descrição da Tarefa"
               />
               <button onClick={() => handleTaskDeletion(index)}>Deletar</button>
             </li>
@@ -124,4 +126,3 @@ function App() {
 }
 
 export default App;
-
