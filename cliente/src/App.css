@@ -14,14 +14,15 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #06060e;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(255, 255, 255);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .App-link {
@@ -37,7 +38,6 @@
   }
 }
 
-
 .draggable-button {
   display: inline-block;
   margin: 10px;
@@ -50,21 +50,24 @@
   cursor: -moz-grabbing;
 }
 
-
 .container {
   background-color: #0055ff;
   color: rgb(255, 208, 0);
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
+  text-align: center;
+  margin-right: 12%;
+}
+
+p {
+  margin-right: 10%;
+}
+.box {
   display: inline-block;
-  overflow: auto;
-  white-space: nowrap;
+  margin: 10px;
+  background-color: rgba(0, 255, 213, 0.178);
+  padding: 10px;
+  border-spacing: 10px;
+  border-radius: 30px;
 }
-
-@media screen and (max-width: 600px) {
-  .container {
-    flex-wrap: wrap;
-  }
-}
-

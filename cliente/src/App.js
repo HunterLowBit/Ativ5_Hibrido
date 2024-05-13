@@ -38,12 +38,13 @@ function App() {
   const handleClearList = () => {
     setTasks([]);
     saveTasksToLocalStorage([]);
+    localStorage.removeItem(LIST_TITLE_KEY);
   };
 
   const handleSaveList = () => {
     const filename = prompt("Enter a filename:");
     if (filename) {
-      const blob = new Blob([JSON.stringify(tasks, null, 2)], {
+      const blob = new Blob([JSON.stringify({ tasks, listTitle }, null, 2)], {
         type: "application/json",
       });
       const url = URL.createObjectURL(blob);
@@ -63,9 +64,11 @@ function App() {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
-        const importedTasks = JSON.parse(e.target.result);
-        setTasks(importedTasks);
-        saveTasksToLocalStorage(importedTasks);
+        const importedData = JSON.parse(e.target.result);
+        setTasks(importedData.tasks);
+        setListTitle(importedData.listTitle);
+        saveTasksToLocalStorage(importedData.tasks);
+        localStorage.setItem(LIST_TITLE_KEY, importedData.listTitle);
       };
       reader.readAsText(file);
     });
@@ -81,6 +84,7 @@ function App() {
 
   const saveTasksToLocalStorage = (tasks) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+    localStorage.setItem(LIST_TITLE_KEY, listTitle);
   };
 
   useEffect(() => {
@@ -90,43 +94,49 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>
-          <input
-            type="text"
-            value={listTitle}
-            onChange={(event) => setListTitle(event.target.value)}
-            placeholder="Nome da Lista"
-          />
-        </h2>
-        <ul>
-          <div class="container" data-color-index="1">
-            {tasks.map((task, index) => (
-              <li key={index}>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleTaskCompletion(index)}
-                />
-                <input
-                  type="text"
-                  value={task.description}
-                  onChange={(event) =>
-                    handleTaskEdit(index, event.target.value)
-                  }
-                  placeholder="Descrição da Tarefa"
-                />
-                <button onClick={() => handleTaskDeletion(index)}>
-                  Deletar
-                </button>
-              </li>
-            ))}
+        <div class="box">
+          <h2>
+            <input
+              type="text"
+              value={listTitle}
+              onChange={(event) => {
+                setListTitle(event.target.value);
+                localStorage.setItem(LIST_TITLE_KEY, event.target.value);
+              }}
+              placeholder="Nome da Lista"
+            />
+          </h2>
+          <ul>
+            <p>ITEM</p>
+            <div class="container">
+              {tasks.map((task, index) => (
+                <li key={index}>
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleTaskCompletion(index)}
+                  />
+                  <input
+                    type="text"
+                    value={task.description}
+                    onChange={(event) =>
+                      handleTaskEdit(index, event.target.value)
+                    }
+                    placeholder="Descrição da Tarefa"
+                  />
+                  <button onClick={() => handleTaskDeletion(index)}>
+                    Deletar
+                  </button>
+                </li>
+              ))}
+            </div>
+          </ul>
+          <div class="draggable-button">
+            <button onClick={handleAddTask}>Adicionar</button>
+            <button onClick={handleClearList}>Limpar Lista</button>
+            <button onClick={handleSaveList}>Salvar Lista</button>
+            <button onClick={handleImportList}>Carregar Lista</button>
           </div>
-        </ul>
-        <div class="draggable-button">
-          <button onClick={handleAddTask}>Adicionar</button>
-          <button onClick={handleClearList}>Limpar Lista</button>
-          <button onClick={handleSaveList}>Salvar Lista</button>
-          <button onClick={handleImportList}>Carregar Lista</button>
         </div>
       </header>
     </div>
