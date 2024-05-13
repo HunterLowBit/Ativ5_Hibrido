@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+
+.draggable-button {
+  display: inline-block;
+  margin: 10px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+.draggable-button:active {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+

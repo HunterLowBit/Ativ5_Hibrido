@@ -115,11 +115,16 @@ function App() {
               <button onClick={() => handleTaskDeletion(index)}>Deletar</button>
             </li>
           ))}
+
         </ul>
+        <div class="draggable-button">
         <button onClick={handleAddTask}>Adicionar</button>
         <button onClick={handleClearList}>Limpar Lista</button>
         <button onClick={handleSaveList}>Salvar Lista</button>
         <button onClick={handleImportList}>Carregar Lista</button>
+        </div>
+
+
       </header>
     </div>
   );
