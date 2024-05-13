@@ -99,32 +99,35 @@ function App() {
           />
         </h2>
         <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleTaskCompletion(index)}
-              />
-              <input
-                type="text"
-                value={task.description}
-                onChange={(event) => handleTaskEdit(index, event.target.value)}
-                placeholder="Descrição da Tarefa"
-              />
-              <button onClick={() => handleTaskDeletion(index)}>Deletar</button>
-            </li>
-          ))}
-
+          <div class="container">
+            {tasks.map((task, index) => (
+              <li key={index}>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleTaskCompletion(index)}
+                />
+                <input
+                  type="text"
+                  value={task.description}
+                  onChange={(event) =>
+                    handleTaskEdit(index, event.target.value)
+                  }
+                  placeholder="Descrição da Tarefa"
+                />
+                <button onClick={() => handleTaskDeletion(index)}>
+                  Deletar
+                </button>
+              </li>
+            ))}
+          </div>
         </ul>
         <div class="draggable-button">
-        <button onClick={handleAddTask}>Adicionar</button>
-        <button onClick={handleClearList}>Limpar Lista</button>
-        <button onClick={handleSaveList}>Salvar Lista</button>
-        <button onClick={handleImportList}>Carregar Lista</button>
+          <button onClick={handleAddTask}>Adicionar</button>
+          <button onClick={handleClearList}>Limpar Lista</button>
+          <button onClick={handleSaveList}>Salvar Lista</button>
+          <button onClick={handleImportList}>Carregar Lista</button>
         </div>
-
-
       </header>
     </div>
   );
